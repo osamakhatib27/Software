@@ -8,6 +8,7 @@ class User {
     private String Email;
     private String Phone;
     private String Birthday;
+    public int cart=0;
     
     
     public User(String username, String password, String role, String Email, String Phone, String Birthday) {
@@ -39,6 +40,21 @@ class User {
     public String getBirthday() {
         return Birthday;
     }
+    public void SetPassword(String P) {
+         this.password= P;
+    }
+    public void SetEmail(String P) {
+        this.Email= P;
+   }
+    public void SetPhone(String P) {
+        this.Phone= P;
+   }
+    public void SetBirth(String P) {
+        this.Birthday= P;
+   }
+    public void SetRole(String P) {
+        this.role= P;
+   }
 }
 
 public class Main {
@@ -140,11 +156,12 @@ public class Main {
                 System.out.println("Menu:");
                 System.out.println("1) View Users");
                 System.out.println("2) Products Page");
-                System.out.println("3) Sign out");
+                System.out.println("3) Edit Users Profiles");
+                System.out.println("4) Sign out");
                 System.out.print("Enter your choice: ");
 
                 choice = scanner1.nextInt();
-                scanner1.nextLine();  // Consume the newline character
+                scanner1.nextLine();  
 
                 switch (choice) {
                     case 1:
@@ -155,16 +172,54 @@ public class Main {
                         System.out.println("Displaying Products Page...");
                         return 2;
                         
-                    case 3:
+                    case 4:
                         System.out.println("Exiting...");
                         return 3;
+                    case 3:
+                        System.out.println("Displaying Edit Users Page...");
+                        return 10;
                     default:
                         System.out.println("Invalid choice. Please try again.");
-                        return 4;
+                        return 5;
                 }
             }
-        } else {
-            ;
+        } else if(role.equals("customer") || role.equals("installer")) {
+        	Scanner scanner1 = new Scanner(System.in);
+            int choice;
+        	while (true) {
+            	System.out.println("              Customer Dashboard  \n ");
+                System.out.println("Menu:");
+                System.out.println("1) Browse products");
+                System.out.println("2) view orders");
+                System.out.println("3) Edit Profile");
+                System.out.println("4) Sign out");
+                System.out.print("Enter your choice: ");
+                
+                choice = scanner1.nextInt();
+                scanner1.nextLine();
+                
+                switch (choice) {
+                case 1:
+                    System.out.println("Displaying Products Page...");
+                    return 5;
+                    
+                case 2:
+                    System.out.println("Displaying Orders Page...");
+                    return 6;
+                    
+                case 3:
+                    System.out.println("Edit Profile Page...");
+                    return 7;
+                case 4:
+                    System.out.println("Edit Profile Page...");
+                    return 3;
+                    
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    return 9;
+            }
+        }
+        	
         }
 		return 0;
     }
@@ -225,26 +280,162 @@ public class Main {
     
     
     public static void addProducts() {
-    	String productName="Table";
+    	String productName="Seats";
     	int productNumber= 101;
     	int numPieces= 23;
-    	Product product = new Product(productName, productNumber, numPieces);
+    	int price=1000;
+    	String category="Interior";
+    	Product product = new Product(productName, productNumber, numPieces,price, category);
         pm.productList.add(product);
-         productName="Chair";
+         productName="Steering";
     	 productNumber= 102;
     	 numPieces= 50;
-    	Product product1 = new Product(productName, productNumber, numPieces);
+    	 price=5000;
+    	Product product1 = new Product(productName, productNumber, numPieces,price, category);
         pm.productList.add(product1);
-         productName="Hat";
+         productName="Headlights";
     	 productNumber= 103;
     	 numPieces= 60;
-    	Product product2 = new Product(productName, productNumber, numPieces);
+    	 price=300;
+    	 category="Exterior";
+    	Product product2 = new Product(productName, productNumber, numPieces,price, category);
         pm.productList.add(product2);
-         productName="Cup";
+         productName="Wheels";
     	 productNumber= 104;
     	 numPieces= 100;
-    	Product product3 = new Product(productName, productNumber, numPieces);
+    	 price=700;
+    	Product product3 = new Product(productName, productNumber, numPieces,price, category);
         pm.productList.add(product3);
+        productName="Screen";
+   	 productNumber= 105;
+   	 numPieces= 300;
+   	 price=4000;
+   	category="Electronics";
+   	Product product4 = new Product(productName, productNumber, numPieces,price, category);
+       pm.productList.add(product4);
+       productName="Camera";
+  	 productNumber= 106;
+  	 numPieces= 130;
+  	 price=240;
+  	Product product5 = new Product(productName, productNumber, numPieces,price, category);
+      pm.productList.add(product5);
+    }
+    
+    
+    public static void Edit_profile()
+    {
+    	System.out.println("Username: " + currentUser.getUsername());
+        System.out.println("Password: " + currentUser.getPassword());
+        System.out.println("Email: " + currentUser.getEmail());
+        System.out.println("Phone: " + currentUser.getPhone());
+        System.out.println("Birthday: " + currentUser.getBirthday());
+        System.out.println("Role: " + currentUser.getRole());
+        System.out.println("-------------------");
+    	System.out.println("Enter The Number Of The Field You Want To Edit 1)Password 2)Email 3)Phone Number 4)Birthday");
+    	Scanner scanner4 = new Scanner(System.in);
+    	int choice4 = scanner4.nextInt();
+        scanner4.nextLine();
+        switch (choice4) {
+        case 1:
+        	System.out.println("Enter The New Password");
+        	Scanner scanner5 = new Scanner(System.in);
+        	String choice5 = scanner5.nextLine();
+        	currentUser.SetPassword(choice5);
+        	System.out.println("Password changed Successfully");
+            break;
+        case 2:
+        	System.out.println("Enter The New Email");
+        	Scanner scanner6 = new Scanner(System.in);
+        	String choice6 = scanner6.nextLine();
+        	currentUser.SetEmail(choice6);
+        	System.out.println("Email changed Successfully");
+            break;
+        case 3:
+        	System.out.println("Enter The New Phone Number");
+        	Scanner scanner7 = new Scanner(System.in);
+        	String choice7 = scanner7.nextLine();
+        	currentUser.SetPhone(choice7);
+        	System.out.println("Phone Number changed Successfully");
+            break;
+        case 4:
+        	System.out.println("Enter The New Birthday");
+        	Scanner scanner8 = new Scanner(System.in);
+        	String choice8 = scanner8.nextLine();
+        	currentUser.SetBirth(choice8);
+        	System.out.println("Birthday changed Successfully");
+            break;
+        case 5:
+       	 break;
+        default:
+            System.out.println("Invalid choice. Please try again.");
+            
+    }
+    }
+    public static void Edit_profile_Admin()
+    {
+    	viewUsers();
+    	System.out.println("Enter the username of the user you want to edit");
+    	Scanner scanner9 = new Scanner(System.in);
+    	String choice9 = scanner9.nextLine();
+    	System.out.println(choice9);
+    	for (User product : users) {
+    		System.out.println(product.getUsername());
+            if(product.getUsername().equals(choice9)) {
+            	System.out.println("Username: " + product.getUsername());
+                System.out.println("Password: " + product.getPassword());
+                System.out.println("Email: " + product.getEmail());
+                System.out.println("Phone: " + product.getPhone());
+                System.out.println("Birthday: " + product.getBirthday());
+                System.out.println("Role: " + product.getRole());
+                System.out.println("-------------------");
+            
+    	
+            	System.out.println("Enter The Number Of The Field You Want To Edit 1)Password 2)Email 3)Phone Number 4)Birthday 5)Role");
+            	Scanner scanner10 = new Scanner(System.in);
+            	int choice10 = scanner10.nextInt();
+            	switch (choice10) {
+                case 1:
+                	System.out.println("Enter The New Password");
+                	Scanner scanner5 = new Scanner(System.in);
+                	String choice5 = scanner5.nextLine();
+                	product.SetPassword(choice5);
+                	System.out.println("Password changed Successfully");
+                    break;
+                case 2:
+                	System.out.println("Enter The New Email");
+                	Scanner scanner6 = new Scanner(System.in);
+                	String choice6 = scanner6.nextLine();
+                	product.SetEmail(choice6);
+                	System.out.println("Email changed Successfully");
+                    break;
+                case 3:
+                	System.out.println("Enter The New Phone Number");
+                	Scanner scanner7 = new Scanner(System.in);
+                	String choice7 = scanner7.nextLine();
+                	product.SetPhone(choice7);
+                	System.out.println("Phone Number changed Successfully");
+                    break;
+                case 4:
+                	System.out.println("Enter The New Birthday");
+                	Scanner scanner8 = new Scanner(System.in);
+                	String choice8 = scanner8.nextLine();
+                	product.SetBirth(choice8);
+                	System.out.println("Birthday changed Successfully");
+                    break;
+                case 5:
+                	System.out.println("Enter The New Role");
+                	Scanner scanner11 = new Scanner(System.in);
+                	String choice11 = scanner11.nextLine();
+                	product.SetRole(choice11);
+                	System.out.println("Role changed Successfully");
+               	 break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    
+            }
+            }
+    	}
+       
     }
     
     public static void main(String[] args) {
@@ -277,6 +468,10 @@ public class Main {
             	 signOut();
             	 break;
              }
+             else if(x==10)
+             {
+            	 Edit_profile_Admin();
+             }
              else if(x==1)
              {
              	viewUsers();
@@ -293,7 +488,7 @@ public class Main {
                  System.out.print("Enter your choice: ");
                   
                  int choice1 = scanner.nextInt();
-                 scanner.nextLine();  // Consume the newline character
+                 scanner.nextLine();
                   if(choice1==5)
                 	  break;
                  switch (choice1) {
@@ -316,6 +511,27 @@ public class Main {
                  }
              }
      }
+             else if (x==5) {
+            	 pm.viewProducts();
+            	 while(true) {
+            	 
+            	 System.out.println("Enter the Product number to add it to your cart(to back to menu enter 0, to checkout enter 1) ");
+            	 Scanner scanner3 = new Scanner(System.in);
+            	 int choice3 = scanner3.nextInt();
+                 scanner3.nextLine();
+                 if(choice3==0) break;
+                 else if(choice3==1) 
+                 {
+                	 System.out.println("The value of your purchase is " + currentUser.cart );
+                	 currentUser.cart=0;
+                	 break;
+                 }
+                int y= pm.BrowseProducts(choice3);
+                currentUser.cart = currentUser.cart + y;
+                System.out.println("The value of your cart = " + currentUser.cart );
+             }
+             }
+             else if (x==7) Edit_profile();
             }
             
             
